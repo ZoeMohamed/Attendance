@@ -38,6 +38,8 @@ class _DetailDana extends State<DetailDana> {
   bool delete = false;
   bool _enabled = true;
 
+  Future datahasi;
+
   // Order by mechnaism
 
   byHighestPrice() {
@@ -48,13 +50,15 @@ class _DetailDana extends State<DetailDana> {
 
   byLatestDate() {
     String query =
-        "SELECT * FROM $movimentacaoTABLE WHERE $idParentColumn = ${widget.mov.first.id} ORDER BY $dataColumn DESC";
+        "SELECT * FROM $movimentacaoTABLE WHERE $idParentColumn = ${widget.mov.first.id} ORDER BY strftime('%Y-%m-%d', $dataColumn) DESC";
     return query;
   }
 
   byOldestDate() {
     String query =
         "SELECT * FROM $movimentacaoTABLE WHERE $idParentColumn = ${widget.mov.first.id} ORDER BY $dataColumn";
+
+    log("SELECT * FROM $movimentacaoTABLE WHERE $idParentColumn = ${widget.mov.first.id} ORDER BY $uniqTimeColumn");
     return query;
   }
 
@@ -122,6 +126,16 @@ class _DetailDana extends State<DetailDana> {
         });
   }
 
+  splitter(String x) {
+    var arrayx = x.split("-");
+
+    int tanggal = int.tryParse(arrayx[0]);
+    int bulan = int.tryParse(arrayx[1] * 30);
+    int tahun = int.tryParse(arrayx[2] * 365);
+
+    return tanggal + bulan + tahun;
+  }
+
   getdetailBudget(int budgetID) async {
     setState(() {
       _enabled = true;
@@ -129,6 +143,16 @@ class _DetailDana extends State<DetailDana> {
     GetHelper.getDetailBudget(budgetID).then((datanya) {
       datanya.forEach((element) {
         Movimentacoes mov = Movimentacoes();
+        // var x = splitter(element['dataColumn']);
+        log(element['dataColumn'].toString().split("-")[0]);
+
+        var x = int.tryParse(element['dataColumn'].toString().split("-")[0]) +
+            int.tryParse(element['dataColumn'].toString().split("-")[1]) * 30 +
+            int.tryParse(element['dataColumn'].toString().split("-")[2]) * 365;
+
+        log(x.toString());
+        log(element['timestampUniq'].toString());
+        log(element['dataColumn'].toString());
         mov.id = element['idColumn'];
         mov.valor = double.parse(element['valorColumn'].toString());
         mov.tipo = element['tipoColumn'];
@@ -180,12 +204,6 @@ class _DetailDana extends State<DetailDana> {
         }
       });
     });
-  }
-
-  Future datahasil(int budgetID) async {
-    //_refreshdata();
-    print("DARI SINI");
-    return GetHelper.getDetailBudget(budgetID);
   }
 
   Future _refreshdata() async {
@@ -429,6 +447,8 @@ class _DetailDana extends State<DetailDana> {
 
     _refreshdata();
     print(widget.mov);
+
+    datahasi = GetHelper.getDetailBudget(widget.mov.first.id);
     super.initState();
   }
 
@@ -796,9 +816,12 @@ class _DetailDana extends State<DetailDana> {
                                 movimentacoesHelper
                                     .getDetailBudget(
                                         widget.mov.first.id.toString(),
-                                        byLatestDate())
+                                        "SELECT * FROM $movimentacaoTABLE WHERE $idParentColumn = ${widget.mov.first.id} ORDER BY $uniqTimeColumn DESC")
                                     .then((list) {
-                                  log(list.toString());
+                                  Movimentacoes mov = Movimentacoes();
+
+                                  log(list[0].data);
+
                                   if (list.isNotEmpty) {
                                     setState(() {
                                       listmovimentacoes = list;
@@ -838,7 +861,7 @@ class _DetailDana extends State<DetailDana> {
                                 movimentacoesHelper
                                     .getDetailBudget(
                                         widget.mov.first.id.toString(),
-                                        byOldestDate())
+                                         "SELECT * FROM $movimentacaoTABLE WHERE $idParentColumn = ${widget.mov.first.id} ORDER BY $uniqTimeColumn ")
                                     .then((list) {
                                   log(list.toString());
                                   if (list.isNotEmpty) {
@@ -899,7 +922,7 @@ class _DetailDana extends State<DetailDana> {
                 child: RefreshIndicator(
                     onRefresh: _refreshdata,
                     child: FutureBuilder(
-                      future: datahasil(widget.mov.first.id),
+                      future: datahasi,
                       builder: (context, snapshots) {
                         if (!snapshots.hasData ||
                             snapshots.data.length == 0 && proccess == true) {
