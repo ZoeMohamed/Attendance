@@ -1,3 +1,6 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:schools_management/helper/Movimentacoes_helper.dart';
 import 'package:schools_management/helper/get_helper.dart';
 import 'package:schools_management/widgets/custom_app_bar.dart';
@@ -10,6 +13,8 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:schools_management/provider/parent.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:sizer/sizer.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -689,9 +694,152 @@ class _HomePageState extends State<HomePage> {
 
                                 return Dismissible(
                                   direction: DismissDirection.endToStart,
+                                  confirmDismiss:
+                                      (DismissDirection direction) async {
+                                         return await AwesomeDialog(
+                                          context: context,
+                                          dialogType: DialogType.WARNING,
+                                          title: "Success: ",
+                                          desc: "tes",
+                                          body: Center(
+                                            child: Column(
+                                              children: [
+                                                Text(
+                                                  "Are You Sure ?",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      fontSize: 15.0.sp),
+                                                ),
+                                                SizedBox(
+                                                  height: 25,
+                                                ),
+                                                Container(
+                                                    margin: EdgeInsets.only(
+                                                        left: 15, right: 15),
+                                                    child: Column(
+                                                      children: [
+                                                        Text(
+                                                          "Hati-hati saat mendelete item",
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                              fontSize:
+                                                                  13.0.sp),
+                                                        ),
+                                                        SizedBox(
+                                                          height: 4,
+                                                        ),
+                                                        Text(
+                                                          "semua transaction kami catat,",
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                              fontSize:
+                                                                  13.0.sp),
+                                                        ),
+                                                        SizedBox(
+                                                          height: 4,
+                                                        ),
+                                                        Text(
+                                                          "walaupun anda mendelete nya ",
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                              fontSize:
+                                                                  13.0.sp),
+                                                        ),
+                                                        SizedBox(
+                                                          height: 4,
+                                                        ),
+                                                        Text(
+                                                          "saldo tetap akan ditambahkan",
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                              fontSize:
+                                                                  13.0.sp),
+                                                        ),
+                                                        SizedBox(
+                                                          height: 4,
+                                                        ),
+                                                        Text(
+                                                          "dengan saldo sebelumnya ",
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                              fontSize:
+                                                                  13.0.sp),
+                                                        ),
+                                                      ],
+                                                    )),
+                                                SizedBox(
+                                                  height: 35,
+                                                ),
+                                                Container(
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceEvenly,
+                                                    children: [
+                                                      DialogButton(
+                                                          width: 100,
+                                                          color: Colors.green,
+                                                          child: Text(
+                                                            "Cancel",
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                fontSize:
+                                                                    14.0.sp),
+                                                          ),
+                                                          onPressed: () {
+                                                            Navigator.pop(
+                                                                context);
+                                                          }),
+                                                     DialogButton(
+                                                          width: 100,
+                                                          color: Colors.red,
+                                                          child: Text(
+                                                            "Delete",
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                fontSize:
+                                                                    14.0.sp),
+                                                          ),
+                                                          onPressed: () async {
+                                                           
+                                                          })
+                                                    ],
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          )).show();
+                                      },
                                   onDismissed: (direction) {
-                                    //_dialogConfimacao(context, width, mov,index);
-
                                     setState(() {
                                       listmovimentacoes.removeAt(index);
                                     });
@@ -732,16 +880,42 @@ class _HomePageState extends State<HomePage> {
                                     _scafoldKey.currentState
                                         .showSnackBar(snackBar);
                                   },
-                                  key: ValueKey(mov.id),
+                                  key: UniqueKey(),
                                   background: Container(
-                                    padding: EdgeInsets.only(
-                                        right: 10, top: width * 0.04),
+                                    margin: EdgeInsets.only(right: 6),
+                                    padding:
+                                        EdgeInsets.only(right: 15, top: 3.0.h),
                                     alignment: Alignment.topRight,
                                     color: Colors.red,
-                                    child: Icon(
-                                      Icons.delete_outline,
-                                      color: Colors.white,
-                                      size: width * 0.07,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Shimmer.fromColors(
+                                          baseColor: Colors.white,
+                                          highlightColor: Colors.grey,
+                                          direction: ShimmerDirection.rtl,
+                                          child: Text(
+                                            "Swipe to Delete",
+                                            style: GoogleFonts.lato(
+                                                textStyle: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 15.0.sp)),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 3.9.w,
+                                        ),
+                                        Shimmer.fromColors(
+                                          baseColor: Colors.white,
+                                          direction: ShimmerDirection.rtl,
+                                          highlightColor: Colors.red,
+                                          child: Icon(
+                                            FluentIcons.arrow_left_16_filled,
+                                            color: Colors.white,
+                                            size: 12.0.w,
+                                          ),
+                                        )
+                                      ],
                                     ),
                                   ),
                                   child: CardMovimentacoesItem(

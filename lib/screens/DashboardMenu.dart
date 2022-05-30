@@ -1,15 +1,17 @@
 
 import 'dart:async';
 
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:countup/countup.dart';
 
 import 'package:flutter/services.dart';
-
+import 'package:sizer/sizer.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 import 'package:permission_handler/permission_handler.dart';
 
 import 'package:flutter/material.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 import 'package:rxdart/subjects.dart';
 
@@ -960,13 +962,108 @@ class _DashboardMenuState extends State<DashboardMenu> {
                           clipBehavior: Clip.hardEdge,
                           child: IconButton(
                             splashRadius: 100,
-                            onPressed: () {
-                              removeValuesSharedpref();
+                            onPressed: () async{
+
+                              return await AwesomeDialog(
+                                  context: context,
+                                          dialogType: DialogType.WARNING,
+                                          title: "Success: ",
+                                          desc: "tes",
+                                          body: Center(
+                                            child: Column(
+                                              children: [
+                                                Text(
+                                                  "Warning",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      fontSize: 15.0.sp),
+                                                ),
+                                                SizedBox(
+                                                  height: 25,
+                                                ),
+                                                Container(
+                                                    margin: EdgeInsets.only(
+                                                        left: 15, right: 15),
+                                                    child: Column(
+                                                      children: [
+                                                        Text(
+                                                          "Logout From Attendance App ? ",
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                              fontSize:
+                                                                  13.0.sp),
+                                                        ),
+                                                        SizedBox(
+                                                          height: 4,
+                                                        ),
+                                                    
+                                                       
+                                                        
+                                                       
+                                                      
+                                                      ],
+                                                    )),
+                                                SizedBox(
+                                                  height: 35,
+                                                ),
+                                                Container(
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceEvenly,
+                                                    children: [
+                                                      DialogButton(
+                                                          width: 100,
+                                                          color: Colors.red,
+                                                          child: Text(
+                                                            "Cancel",
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                fontSize:
+                                                                    14.0.sp),
+                                                          ),
+                                                          onPressed: () {
+                                                            Navigator.pop(
+                                                                context);
+                                                          }),
+                                                     DialogButton(
+                                                          width: 100,
+                                                          color: Colors.green,
+                                                          child: Text(
+                                                            "Yes",
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                fontSize:
+                                                                    14.0.sp),
+                                                          ),
+                                                          onPressed: () async {
+                                                                 removeValuesSharedpref();
 
                               Navigator.of(context).pushAndRemoveUntil(
                                   MaterialPageRoute(
                                       builder: (context) => Login()),
                                   (Route<dynamic> route) => false);
+                                                          })
+                                                    ],
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          )).show();
+                        
                             },
                             icon: SvgPicture.asset(
                                 'dev_assets/paytm/logout3.svg',
