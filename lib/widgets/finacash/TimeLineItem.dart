@@ -59,12 +59,17 @@ class TimeLineItem extends StatelessWidget {
                   // mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(
-                      mov.titleproject,
-                      style: TextStyle(
-                        fontFamily: "Lato",
-                        color: Colors.black,
-                        fontSize: width * 0.045,
+                    Container(
+                      width: width / 2,
+                      child: Text(
+                        mov.titleproject,
+                        // "asdasdasdasdasdasdasdddddddddddddddddddddddddddddddddddddd"
+                        style: TextStyle(
+                          overflow: TextOverflow.ellipsis,
+                          fontFamily: "Lato",
+                          color: Colors.black,
+                          fontSize: width * 0.045,
+                        ),
                       ),
                     ),
                     Padding(
@@ -77,13 +82,19 @@ class TimeLineItem extends StatelessWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                  mov.descricao,
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: width * 0.030,
-                                      fontFamily: "Montserrat",
-                                      fontWeight: FontWeight.w500),
+                                Container(
+                                  width: width / 4,
+                                  child: Text(
+                                    // mov.descricao,
+                                    "sdaopkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk",
+
+                                    style: TextStyle(
+                                        overflow: TextOverflow.ellipsis,
+                                        color: Colors.black,
+                                        fontSize: width * 0.030,
+                                        fontFamily: "Montserrat",
+                                        fontWeight: FontWeight.w500),
+                                  ),
                                 ),
                                 Padding(
                                   padding: EdgeInsets.only(right: width * 0.05),

@@ -11,6 +11,7 @@ class Leave {
   final String submitted_job;
   final String reason;
   final int status;
+  final String created_at;
 
   // "response_date": "2022-05-20 15:29:17",
   // "created_at": "2022-05-20 15:29:17",
@@ -28,7 +29,8 @@ class Leave {
       this.back_to_office,
       this.submitted_job,
       this.reason,
-      this.status});
+      this.status,
+      this.created_at});
 
   factory Leave.fromJson(Map<String, dynamic> json) {
     return Leave(
@@ -43,7 +45,8 @@ class Leave {
         back_to_office: json['back_to_office'],
         submitted_job: json['submitted_job'],
         reason: json['reason'],
-        status: json['status']);
+        status: json['status'],
+        created_at: json['created_at']);
   }
 
   // Map<String, dynamic> toJson() {

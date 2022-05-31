@@ -12,7 +12,7 @@ class GetHelper {
   static Future getListAttend() async {
     try {
       final response = await http.get(
-        "https://la-att.intek.co.id/api/list/attend",
+        LINKAPI + "api/list/attend",
       );
       if (response.statusCode == 200) {
         // if every things are right
@@ -28,7 +28,7 @@ class GetHelper {
   static Future getNotification() async {
     try {
       final response = await http.get(
-        "https://la-att.intek.co.id/api/notification/office",
+        LINKAPI + "api/notification/office",
       );
       if (response.statusCode == 200) {
         // if every things are right
@@ -88,7 +88,7 @@ class GetHelper {
   static Future getLastAttend() async {
     try {
       final response = await http.get(
-        "https://la-att.intek.co.id/api/list/late",
+        LINKAPI + "api/list/late",
       );
       if (response.statusCode == 200) {
         // if every things are right
@@ -109,7 +109,7 @@ class GetHelper {
       double longitude, double latitude) async {
     try {
       final response = await http.get(
-        "https://la-att.intek.co.id/api/getAlert/${user_id.toString()}",
+        LINKAPI + "api/getAlert/${user_id.toString()}",
       );
       if (response.statusCode == 200) {
         // if every things are right
@@ -193,7 +193,7 @@ class GetHelper {
   static Future<bool> checkattendIN(int user_id) async {
     try {
       final response = await http.get(
-        "https://la-att.intek.co.id/api/getstatusIN/${user_id.toString()}",
+        LINKAPI + "api/getstatusIN/${user_id.toString()}",
       );
       if (response.statusCode == 200) {
         // if every things are right
@@ -237,7 +237,7 @@ class GetHelper {
         'city': city
       };
       var response = await http.post(
-        "https://la-att.intek.co.id/api/recive/data",
+        LINKAPI + "api/recive/data",
         headers: {
           "Accept": "application/json",
           "Content-Type": "application/x-www-form-urlencoded"
@@ -396,7 +396,7 @@ class GetHelper {
         'reason': alasan,
       };
       var response = await http.post(
-        LINKAPIRIL + "api/create_days_off",
+        LINKAPI + "api/create_days_off",
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -432,7 +432,7 @@ class GetHelper {
   Future<List<Leave>> fetchLeave(int id) async {
     final response = await http.post(
         Uri.parse(
-          LINKAPIRIL + 'api/days_off',
+          LINKAPI + 'api/days_off',
         ),
         body: {"user_id": id.toString()});
 
@@ -466,8 +466,9 @@ class GetHelper {
     var response;
     var datauser;
     try {
-      // response = await http.post("https://la-att.intek.co.id/api/login", body: {
+      // response = await http.post(LINKAPI"api/login", body: {
       response = await http.post(LINKAPIRIL + "api/login", body: {
+        // response = await http.post(LINKAPI + "api/login", body: {
         "email": user
             .trim(), // we use trim method to avoid spaces that user may make when logging
         "password": pass
@@ -490,7 +491,7 @@ class GetHelper {
   static Future<Report> fetchReport(String month, int id) async {
     final response = await http.post(
         Uri.parse(
-          LINKAPIZOE + 'api/chart',
+          LINKAPI + 'api/chart',
         ),
         body: {"user_id": id.toString()});
 

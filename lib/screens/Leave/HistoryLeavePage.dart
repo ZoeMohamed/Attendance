@@ -558,6 +558,40 @@ class _HistoryLeavePageState extends State<HistoryLeavePage> {
                                                   SizedBox(
                                                     height: 2,
                                                   ),
+                                                  Row(
+                                                    children: [
+                                                      Text(
+                                                        "Created At : ",
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              "Montserrat",
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontSize: 13,
+                                                          // letterSpacing: 0.0,
+                                                          color: Color.fromRGBO(
+                                                              14, 69, 84, 0.8),
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        snapshot.data[index]
+                                                            .created_at,
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              "Montserrat",
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                          fontSize: 13,
+                                                          // letterSpacing: 0.0,
+                                                          color: Color.fromRGBO(
+                                                              14, 69, 84, 1),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  SizedBox(
+                                                    height: 2,
+                                                  ),
                                                 ],
                                               ),
                                             ],

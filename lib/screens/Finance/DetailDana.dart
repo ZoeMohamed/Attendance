@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:schools_management/widgets/custAlert.dart';
 import 'package:schools_management/widgets/custom_app_bar.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter/material.dart';
@@ -385,27 +386,41 @@ class _DetailDana extends State<DetailDana> {
 
           movHelper.deleteMovimentacao(mov);
 
-          return Alert(
-            context: context,
-            type: AlertType.success,
-            title: "Success: ",
-            desc: message["message"],
-            buttons: [
-              DialogButton(
-                child: Text(
-                  "Close",
-                  style: TextStyle(color: Colors.white, fontSize: 18),
-                ),
-                //onPressed:  () => GetHelper.sendAttend(name, user_id, "2020-09-28 17:03:01", latitude.toString(), longitude.toString()),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  Navigator.of(context).pop();
-                  Navigator.pop(context);
-                },
-                color: Color.fromRGBO(0, 179, 134, 1.0),
-              ),
-            ],
-          ).show();
+          // return Alert(
+          //   context: context,
+          //   type: AlertType.success,
+          //   title: "Success: ",
+          //   desc: message["message"],
+          //   buttons: [
+          //     DialogButton(
+          //       child: Text(
+          //         "Close",
+          //         style: TextStyle(color: Colors.white, fontSize: 18),
+          //       ),
+          //       //onPressed:  () => GetHelper.sendAttend(name, user_id, "2020-09-28 17:03:01", latitude.toString(), longitude.toString()),
+          //       onPressed: () {
+          //         Navigator.of(context).pop();
+          //         Navigator.of(context).pop();
+          //         Navigator.pop(context);
+          //       },
+          //       color: Color.fromRGBO(0, 179, 134, 1.0),
+          //     ),
+          //   ],
+          // ).show();
+          showCustAlert(
+              height: 280,
+              context: context,
+              title: "Success",
+              // buttonString: "OK",
+
+              onSubmit: () async {
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+                Navigator.pop(context);
+                setState(() {});
+              },
+              detailContent: message["message"],
+              pathLottie: "success");
         }
       }
     } catch (e) {
@@ -861,7 +876,7 @@ class _DetailDana extends State<DetailDana> {
                                 movimentacoesHelper
                                     .getDetailBudget(
                                         widget.mov.first.id.toString(),
-                                         "SELECT * FROM $movimentacaoTABLE WHERE $idParentColumn = ${widget.mov.first.id} ORDER BY $uniqTimeColumn ")
+                                        "SELECT * FROM $movimentacaoTABLE WHERE $idParentColumn = ${widget.mov.first.id} ORDER BY $uniqTimeColumn ")
                                     .then((list) {
                                   log(list.toString());
                                   if (list.isNotEmpty) {
@@ -1031,162 +1046,33 @@ class _DetailDana extends State<DetailDana> {
                                   Dismissible(
                                     direction: DismissDirection.endToStart,
                                     confirmDismiss:
-                                        (DismissDirection direction) async {
-                                      return await AwesomeDialog(
+                                        (DismissDirection direction) {
+                                      return showCustAlertDouble(
+                                          height: 320,
                                           context: context,
-                                          dialogType: DialogType.WARNING,
-                                          title: "Success: ",
-                                          desc: "tes",
-                                          body: Center(
-                                            child: Column(
-                                              children: [
-                                                Text(
-                                                  "Are You Sure ?",
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      fontSize: 15.0.sp),
-                                                ),
-                                                SizedBox(
-                                                  height: 25,
-                                                ),
-                                                Container(
-                                                    margin: EdgeInsets.only(
-                                                        left: 15, right: 15),
-                                                    child: Column(
-                                                      children: [
-                                                        Text(
-                                                          "Hati-hati saat mendelete item",
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                              fontSize:
-                                                                  13.0.sp),
-                                                        ),
-                                                        SizedBox(
-                                                          height: 4,
-                                                        ),
-                                                        Text(
-                                                          "semua transaction kami catat,",
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                              fontSize:
-                                                                  13.0.sp),
-                                                        ),
-                                                        SizedBox(
-                                                          height: 4,
-                                                        ),
-                                                        Text(
-                                                          "walaupun anda mendelete nya ",
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                              fontSize:
-                                                                  13.0.sp),
-                                                        ),
-                                                        SizedBox(
-                                                          height: 4,
-                                                        ),
-                                                        Text(
-                                                          "saldo tetap akan ditambahkan",
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                              fontSize:
-                                                                  13.0.sp),
-                                                        ),
-                                                        SizedBox(
-                                                          height: 4,
-                                                        ),
-                                                        Text(
-                                                          "dengan saldo sebelumnya ",
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                              fontSize:
-                                                                  13.0.sp),
-                                                        ),
-                                                      ],
-                                                    )),
-                                                SizedBox(
-                                                  height: 35,
-                                                ),
-                                                Container(
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceEvenly,
-                                                    children: [
-                                                      DialogButton(
-                                                          width: 100,
-                                                          color: Colors.green,
-                                                          child: Text(
-                                                            "Cancel",
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .white,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                fontSize:
-                                                                    14.0.sp),
-                                                          ),
-                                                          onPressed: () {
-                                                            Navigator.pop(
-                                                                context);
-                                                          }),
-                                                      DialogButton(
-                                                          width: 100,
-                                                          color: Colors.red,
-                                                          child: Text(
-                                                            "Delete",
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .white,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                fontSize:
-                                                                    14.0.sp),
-                                                          ),
-                                                          onPressed: () async {
-                                                            await sendDataBudgetAPI(
-                                                                getParentInfo
-                                                                    .id,
-                                                                mov.idparent,
-                                                                getParentInfo
-                                                                    .team_id,
-                                                                "deleted bro",
-                                                                mov.buktifoto,
-                                                                mov.valor,
-                                                                3,
-                                                                mov.id,
-                                                                mov,
-                                                                index,
-                                                                mov.uniqTime);
-                                                          })
-                                                    ],
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          )).show();
+                                          title: "Are You Sure ?",
+                                          // buttonString: "OK",
+
+                                          onSubmitOk: () async {
+                                            await sendDataBudgetAPI(
+                                                getParentInfo.id,
+                                                mov.idparent,
+                                                getParentInfo.team_id,
+                                                "deleted bro",
+                                                mov.buktifoto,
+                                                mov.valor,
+                                                3,
+                                                mov.id,
+                                                mov,
+                                                index,
+                                                mov.uniqTime);
+                                          },
+                                          onSubmitCancel: () {
+                                            Navigator.pop(context);
+                                          },
+                                          detailContent:
+                                              "Hati-hati saat mendelete item semua transaction kami catat walaupun anda mendelete nya. saldo tetap akan ditambahkan dengan saldo sebelumnya",
+                                          pathLottie: "warning");
                                     },
                                     onDismissed: (direction) {
                                       log("testing");

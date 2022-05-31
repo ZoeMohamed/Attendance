@@ -40,6 +40,8 @@ import 'package:geolocator/geolocator.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import '../../constant.dart';
+
 class MainParentPage extends StatefulWidget {
   static const routeName = '/main-parent-page';
   @override
@@ -578,8 +580,8 @@ class _MainParentPageState extends State<MainParentPage> {
                                     onPressed: () async {
                                       showLoadingProgress(context);
                                       await getstatusIN();
-                                      await getRoadname();
-                                      await getCurrentLocation();
+                                      // await getRoadname();
+                                      // await getCurrentLocation();
                                       Navigator.pop(context);
                                     },
                                     child: Icon(Icons.refresh),
@@ -982,7 +984,7 @@ class _MainParentPageState extends State<MainParentPage> {
     }
     try {
       final response = await http.get(
-        "https://la-att.intek.co.id/api/getstatusIN/${parentID.toString()}",
+        LINKAPI + "api/getstatusIN/${parentID.toString()}",
       );
 
       if (response.statusCode == 200) {
@@ -1061,7 +1063,8 @@ class _MainParentPageState extends State<MainParentPage> {
     // }
     try {
       final response = await http.get(
-        "https://la-att.intek.co.id/api/range/check/${parentID.toString()}?lat=${latitude}&long=${longitude}",
+        LINKAPI +
+            "api/range/check/${parentID.toString()}?lat=${latitude}&long=${longitude}",
       );
 
       if (response.statusCode == 200) {

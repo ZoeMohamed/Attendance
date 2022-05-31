@@ -50,8 +50,9 @@ class Parent with ChangeNotifier {
     var response;
     var datauser;
     try {
-      // response = await http.post("https://la-att.intek.co.id/api/login", body: {
+      // response = await http.post(LINKAPI"api/login", body: {
       response = await http.post(LINKAPIRIL + "api/login", body: {
+        // response = await http.post(LINKAPI + "api/login", body: {
         "email": user
             .trim(), // we use trim method to avoid spaces that user may make when logging
         "password": pass

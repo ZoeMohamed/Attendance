@@ -117,15 +117,38 @@ showCustAlert(
   );
 }
 
-showCustAlertList(
+showCustAlertDouble(
     {BuildContext context,
     String title,
     String detailContent,
     String pathLottie,
-    double height = 300,
-    List buttons,
-    Function onSubmit}) {
+    double height = 350,
+    Function onSubmitOk,
+    Function onSubmitCancel}) {
   Size size = MediaQuery.of(context).size;
+  showLottie(String path) {
+    if (path == "success") {
+      return Container(
+        height: 150,
+        child: Lottie.asset("assets/success.json",
+            repeat: false, width: 90, frameRate: FrameRate(60)),
+      );
+    }
+    if (path == "warning") {
+      return Container(
+        height: 150,
+        child: Lottie.asset("assets/warning.json",
+            repeat: false, width: 200, frameRate: FrameRate(60)),
+      );
+    }
+    if (path == "error") {
+      return Container(
+        height: 150,
+        child: Lottie.asset("assets/error.json",
+            repeat: false, width: 120, frameRate: FrameRate(60)),
+      );
+    }
+  }
 
   showDialog(
     context: context,
@@ -138,17 +161,14 @@ showCustAlertList(
             contentPadding: EdgeInsets.fromLTRB(16, 24, 16, 8),
             content: Container(
               width: double.maxFinite,
-              height: height,
+              height: height + 15,
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  SizedBox(height: 16),
+                  SizedBox(height: 0),
                   Center(
-                    child: Lottie.asset(
-                      "$pathLottie",
-                      width: 150,
-                    ),
+                    child: showLottie(pathLottie),
                   ),
                   SizedBox(
                     height: 10,
@@ -164,39 +184,83 @@ showCustAlertList(
                   SizedBox(
                     height: 8,
                   ),
-                  Text(
-                    '$detailContent',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: Colors.black,
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Text(
+                      '$detailContent',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: Colors.black,
+                      ),
                     ),
                   ),
-                  Expanded(
-                    child: Align(
-                      alignment: FractionalOffset.bottomCenter,
-                      child: Padding(
-                          padding: EdgeInsets.only(bottom: 10.0),
-                          child: InkWell(
-                            onTap: onSubmit,
-                            child: Container(
-                              width: double.maxFinite,
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 12, horizontal: 22),
-                              decoration: BoxDecoration(
-                                  color: Color(0xffF4F4F8),
-                                  borderRadius: BorderRadius.circular(16)),
-                              child: Text(
-                                "Ok",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                          )),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Align(
+                            alignment: FractionalOffset.bottomCenter,
+                            child: Padding(
+                                padding: EdgeInsets.only(bottom: 10.0),
+                                child: InkWell(
+                                  borderRadius: BorderRadius.circular(16),
+                                  onTap: onSubmitCancel,
+                                  child: Container(
+                                    width: double.maxFinite,
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 15, horizontal: 15),
+                                    decoration: BoxDecoration(
+                                        color: Color(0xffF4F4F8),
+                                        borderRadius:
+                                            BorderRadius.circular(16)),
+                                    child: Text(
+                                      "CANCEL",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                )),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Expanded(
+                          child: Align(
+                            alignment: FractionalOffset.bottomCenter,
+                            child: Padding(
+                                padding: EdgeInsets.only(bottom: 10.0),
+                                child: InkWell(
+                                  borderRadius: BorderRadius.circular(16),
+                                  onTap: onSubmitOk,
+                                  child: Container(
+                                    width: double.maxFinite,
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 15, horizontal: 15),
+                                    decoration: BoxDecoration(
+                                        color: Color(0xffF4F4F8),
+                                        borderRadius:
+                                            BorderRadius.circular(16)),
+                                    child: Text(
+                                      "OK",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                )),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],

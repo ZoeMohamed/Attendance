@@ -1,10 +1,11 @@
-
 import 'dart:async';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:countup/countup.dart';
 
 import 'package:flutter/services.dart';
+import 'package:schools_management/widgets/custAlert.dart';
+import 'package:schools_management/widgets/loading_alert.dart';
 import 'package:sizer/sizer.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
@@ -127,20 +128,19 @@ class _DashboardMenuState extends State<DashboardMenu> {
 
     // Get data hadir,telat,tidak hadir
 
-  WidgetsBinding.instance.addPostFrameCallback((_) {
-    var provider = Provider.of<Parent>(context, listen: false).getParentInf();
-    parentID = provider.id;
-    getdata(parentID);
-    
-  });
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      var provider = Provider.of<Parent>(context, listen: false).getParentInf();
+      parentID = provider.id;
+      getdata(parentID);
+    });
     _linearcontroller = BehaviorSubject();
-
 
     super.initState();
   }
 
   getdata(id) async {
-    GetHelper.fetchReport(DateFormat.MMMM().format(DateTime.now()),id).then((value) {
+    GetHelper.fetchReport(DateFormat.MMMM().format(DateTime.now()), id)
+        .then((value) {
       report = value;
 
       _linearcontroller.add(value);
@@ -545,7 +545,9 @@ class _DashboardMenuState extends State<DashboardMenu> {
                                                         Duration(seconds: 1),
                                                   ),
                                                   Text(
-                                                    (snapshot.data.att == 0) ? " Day":" Days",
+                                                    (snapshot.data.att == 0)
+                                                        ? " Day"
+                                                        : " Days",
                                                     style: TextStyle(
                                                         fontFamily:
                                                             "Montserrat",
@@ -597,9 +599,17 @@ class _DashboardMenuState extends State<DashboardMenu> {
                                                     1, 0, 0, 0),
                                                 width: 70.0,
                                                 lineHeight: 5.0,
-                                                percent:
-                                                    (snapshot.data.att /DateUtils.getDaysInMonth(int.tryParse(DateFormat.y().format(DateTime.now())), int.tryParse(DateFormat.M().format(DateTime.now()))) )
-                                                        .toDouble(),
+                                                percent: (snapshot.data.att /
+                                                        DateUtils.getDaysInMonth(
+                                                            int.tryParse(DateFormat
+                                                                    .y()
+                                                                .format(DateTime
+                                                                    .now())),
+                                                            int.tryParse(DateFormat
+                                                                    .M()
+                                                                .format(DateTime
+                                                                    .now()))))
+                                                    .toDouble(),
                                                 backgroundColor: Color.fromRGBO(
                                                     198, 198, 198, 100),
                                                 progressColor: Color.fromRGBO(
@@ -671,7 +681,9 @@ class _DashboardMenuState extends State<DashboardMenu> {
                                                         Duration(seconds: 1),
                                                   ),
                                                   Text(
-                                                    (snapshot.data.notatt == 0) ? " Day":" Days",
+                                                    (snapshot.data.notatt == 0)
+                                                        ? " Day"
+                                                        : " Days",
                                                     style: TextStyle(
                                                         fontFamily:
                                                             "Montserrat",
@@ -695,8 +707,7 @@ class _DashboardMenuState extends State<DashboardMenu> {
                                                   style: TextStyle(
                                                       color: Colors.white)),
                                               Text(
-                                               
-                                               " Day",
+                                                " Day",
                                                 style: TextStyle(
                                                     fontFamily: "Montserrat",
                                                     fontWeight:
@@ -724,9 +735,17 @@ class _DashboardMenuState extends State<DashboardMenu> {
                                                     1, 0, 0, 0),
                                                 width: 70.0,
                                                 lineHeight: 5.0,
-                                                percent:
-                                                    (snapshot.data.notatt /DateUtils.getDaysInMonth(int.tryParse(DateFormat.y().format(DateTime.now())), int.tryParse(DateFormat.M().format(DateTime.now()))) )
-                                                        .toDouble(),
+                                                percent: (snapshot.data.notatt /
+                                                        DateUtils.getDaysInMonth(
+                                                            int.tryParse(DateFormat
+                                                                    .y()
+                                                                .format(DateTime
+                                                                    .now())),
+                                                            int.tryParse(DateFormat
+                                                                    .M()
+                                                                .format(DateTime
+                                                                    .now()))))
+                                                    .toDouble(),
                                                 backgroundColor: Color.fromRGBO(
                                                     198, 198, 198, 100),
                                                 progressColor: Color.fromRGBO(
@@ -759,8 +778,7 @@ class _DashboardMenuState extends State<DashboardMenu> {
                               child: Container(
                                 width: width / 4.5,
                                 height: height,
-                                decoration: BoxDecoration(
-                                    ),
+                                decoration: BoxDecoration(),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -794,7 +812,9 @@ class _DashboardMenuState extends State<DashboardMenu> {
                                                         Duration(seconds: 1),
                                                   ),
                                                   Text(
-                                                   (snapshot.data.late == 0) ? " Day" : " Days",
+                                                    (snapshot.data.late == 0)
+                                                        ? " Day"
+                                                        : " Days",
                                                     style: TextStyle(
                                                         fontFamily:
                                                             "Montserrat",
@@ -817,7 +837,7 @@ class _DashboardMenuState extends State<DashboardMenu> {
                                                   style: TextStyle(
                                                       color: Colors.white)),
                                               Text(
-                                               " Day",
+                                                " Day",
                                                 style: TextStyle(
                                                     fontFamily: "Montserrat",
                                                     fontWeight:
@@ -845,9 +865,17 @@ class _DashboardMenuState extends State<DashboardMenu> {
                                                     1, 0, 0, 0),
                                                 width: 70.0,
                                                 lineHeight: 5.0,
-                                                percent:
-                                                    (snapshot.data.late / DateUtils.getDaysInMonth(int.tryParse(DateFormat.y().format(DateTime.now())), int.tryParse(DateFormat.M().format(DateTime.now()))))
-                                                        .toDouble(),
+                                                percent: (snapshot.data.late /
+                                                        DateUtils.getDaysInMonth(
+                                                            int.tryParse(DateFormat
+                                                                    .y()
+                                                                .format(DateTime
+                                                                    .now())),
+                                                            int.tryParse(DateFormat
+                                                                    .M()
+                                                                .format(DateTime
+                                                                    .now()))))
+                                                    .toDouble(),
                                                 backgroundColor: Color.fromRGBO(
                                                     198, 198, 198, 100),
                                                 progressColor: Color.fromRGBO(
@@ -950,120 +978,39 @@ class _DashboardMenuState extends State<DashboardMenu> {
                                 width: 28.0, height: 28.0),
                           ),
                         ),
-
                         SizedBox(
                           width: size.width * 0.20,
                         ),
-
-
                         Material(
                           color: Colors.transparent,
                           shape: CircleBorder(),
                           clipBehavior: Clip.hardEdge,
                           child: IconButton(
                             splashRadius: 100,
-                            onPressed: () async{
-
-                              return await AwesomeDialog(
+                            onPressed: () {
+                              return showCustAlertDouble(
+                                  height: 280,
                                   context: context,
-                                          dialogType: DialogType.WARNING,
-                                          title: "Success: ",
-                                          desc: "tes",
-                                          body: Center(
-                                            child: Column(
-                                              children: [
-                                                Text(
-                                                  "Warning",
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      fontSize: 15.0.sp),
-                                                ),
-                                                SizedBox(
-                                                  height: 25,
-                                                ),
-                                                Container(
-                                                    margin: EdgeInsets.only(
-                                                        left: 15, right: 15),
-                                                    child: Column(
-                                                      children: [
-                                                        Text(
-                                                          "Logout From Attendance App ? ",
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                              fontSize:
-                                                                  13.0.sp),
-                                                        ),
-                                                        SizedBox(
-                                                          height: 4,
-                                                        ),
-                                                    
-                                                       
-                                                        
-                                                       
-                                                      
-                                                      ],
-                                                    )),
-                                                SizedBox(
-                                                  height: 35,
-                                                ),
-                                                Container(
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceEvenly,
-                                                    children: [
-                                                      DialogButton(
-                                                          width: 100,
-                                                          color: Colors.red,
-                                                          child: Text(
-                                                            "Cancel",
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .white,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                fontSize:
-                                                                    14.0.sp),
-                                                          ),
-                                                          onPressed: () {
-                                                            Navigator.pop(
-                                                                context);
-                                                          }),
-                                                     DialogButton(
-                                                          width: 100,
-                                                          color: Colors.green,
-                                                          child: Text(
-                                                            "Yes",
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .white,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                fontSize:
-                                                                    14.0.sp),
-                                                          ),
-                                                          onPressed: () async {
-                                                                 removeValuesSharedpref();
-
-                              Navigator.of(context).pushAndRemoveUntil(
-                                  MaterialPageRoute(
-                                      builder: (context) => Login()),
-                                  (Route<dynamic> route) => false);
-                                                          })
-                                                    ],
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          )).show();
-                        
+                                  title: "Log Out",
+                                  // buttonString: "OK",
+                                  onSubmitOk: () async {
+                                    showLoadingProgress(context);
+                                    removeValuesSharedpref();
+                                    Navigator.of(context).pushAndRemoveUntil(
+                                        MaterialPageRoute(
+                                            builder: (context) => Login()),
+                                        (Route<dynamic> route) => false);
+                                  },
+                                  onSubmitCancel: () {
+                                    Navigator.of(context).pushAndRemoveUntil(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                DashboardMenu()),
+                                        (Route<dynamic> route) => false);
+                                  },
+                                  detailContent:
+                                      "Are you sure you want to log out ?",
+                                  pathLottie: "warning");
                             },
                             icon: SvgPicture.asset(
                                 'dev_assets/paytm/logout3.svg',

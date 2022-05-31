@@ -16,6 +16,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 
+import '../custAlert.dart';
+
 class Item {
   const Item(this.name, this.icon, this.harga);
   final String name;
@@ -525,61 +527,74 @@ class _CustomDialogDetailState extends State<CustomDialogDetail> {
             messagenya = message["message"];
           });
           var jumlah_baru = _formatNumber(jumlah.toString());
-          return AwesomeDialog(
+          return showCustAlert(
+              height: 280,
               context: context,
-              dialogType: DialogType.SUCCES,
-              title: "Success: ",
-              desc: message["message"],
-              body: Center(
-                child: Column(
-                  children: [
-                    Text(
-                      "Success",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w600, fontSize: 25.0.sp),
-                    ),
-                    SizedBox(
-                      height: 25,
-                    ),
-                    Text(
-                      "Data Money Out Saved ",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500, fontSize: 20.0.sp),
-                    ),
-                    SizedBox(
-                      height: 35,
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(left: 20, right: 20),
-                      child: Text(
-                        "Spent -Rp.${jumlah_baru}",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.red,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 20.0.sp),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 35,
-                    ),
-                    DialogButton(
-                        color: Colors.green,
-                        child: Text(
-                          "Close",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15.0.sp),
-                        ),
-                        onPressed: () {
-                          Navigator.pop(context);
-                          setState(() {});
-                        })
-                  ],
-                ),
-              )).show();
+              title: "Success",
+              // buttonString: "OK",
+
+              onSubmit: () {
+                Navigator.pop(context);
+                setState(() {});
+              },
+              detailContent:
+                  "Data Money Out Saved" + "\nSpent -Rp.${jumlah_baru}",
+              pathLottie: "warning");
+          // return AwesomeDialog(
+          //     context: context,
+          //     dialogType: DialogType.SUCCES,
+          //     title: "Success: ",
+          //     desc: message["message"],
+          //     body: Center(
+          //       child: Column(
+          //         children: [
+          //           Text(
+          //             "Success",
+          //             style: TextStyle(
+          //                 fontWeight: FontWeight.w600, fontSize: 25.0.sp),
+          //           ),
+          //           SizedBox(
+          //             height: 25,
+          //           ),
+          //           Text(
+          //             "Data Money Out Saved ",
+          //             textAlign: TextAlign.center,
+          //             style: TextStyle(
+          //                 fontWeight: FontWeight.w500, fontSize: 20.0.sp),
+          //           ),
+          //           SizedBox(
+          //             height: 35,
+          //           ),
+          //           Container(
+          //             margin: EdgeInsets.only(left: 20, right: 20),
+          //             child: Text(
+          //               "Spent -Rp.${jumlah_baru}",
+          //               textAlign: TextAlign.center,
+          //               style: TextStyle(
+          //                   color: Colors.red,
+          //                   fontWeight: FontWeight.w500,
+          //                   fontSize: 20.0.sp),
+          //             ),
+          //           ),
+          //           SizedBox(
+          //             height: 35,
+          //           ),
+          //           DialogButton(
+          //               color: Colors.green,
+          //               child: Text(
+          //                 "Close",
+          //                 style: TextStyle(
+          //                     color: Colors.white,
+          //                     fontWeight: FontWeight.bold,
+          //                     fontSize: 15.0.sp),
+          //               ),
+          //               onPressed: () {
+          //                 Navigator.pop(context);
+          //                 setState(() {});
+          //               })
+          //         ],
+          //       ),
+          //     )).show();
         }
       }
       print("RESPONSE STATUS POST DATA KASBON => " + response.body.toString());
@@ -701,7 +716,7 @@ class _CustomDialogDetailState extends State<CustomDialogDetail> {
     return AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         title: Text(
-          (widget.role == 5) ? "Add Value(HRGA)" : "ADD VALUE",
+          (widget.role == 5) ? "ADD TRANSACTION(HRGA)" : "ADD TRANSACTION",
           textAlign: TextAlign.center,
           style: TextStyle(
               color: Color.fromRGBO(24, 98, 118, 0.8),
@@ -1095,19 +1110,40 @@ class _CustomDialogDetailState extends State<CustomDialogDetail> {
                                           mov: [ret.first],
                                         )),
                               );
+                              setState(() {});
                             } else {
                               print("INI MASUK ELSE");
                               setState(() {
                                 proccess = true;
                               });
                               Navigator.of(context).pop();
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => DetailDana(
-                                          mov: [ret.first],
-                                        )),
-                              );
+                              // Navigator.pushReplacement(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //       builder: (context) => DetailDana(
+                              //             mov: [ret.first],
+                              //           )),
+                              // );
+                              // Navigator.of(context)
+                              //     .push(MaterialPageRoute(
+                              //   builder: (context) => Screen2(),
+                              // ))
+                              //     .then((value) {
+                              //   // you can do what you need here
+                              //   // setState etc.
+                              // });
+                              Navigator.of(context)
+                                  .pushReplacement(MaterialPageRoute(
+                                builder: (context) => DetailDana(
+                                  mov: [ret.first],
+                                ),
+                              ))
+                                  .then((value) {
+                                // you can do what you need here
+                                // setState etc.
+                                setState(() {});
+                              });
+                              setState(() {});
                             }
                             //Navigator.pop(context);
                             print(ret);
@@ -1142,7 +1178,7 @@ class _CustomDialogDetailState extends State<CustomDialogDetail> {
                             ]),
                         child: Center(
                           child: Text(
-                            edit == false ? "CONFIRM" : "Edit",
+                            edit == false ? "CONFIRM" : "EDIT",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
