@@ -17,8 +17,11 @@ class GetHelper {
       if (response.statusCode == 200) {
         // if every things are right
         var userData = await json.decode(response.body);
-        print(userData);
+        log(userData.toString());
         return userData;
+      } else if (response.statusCode == 500) {
+        var message = jsonDecode(response.body);
+        log(message.toString());
       }
     } catch (e) {
       print(e);

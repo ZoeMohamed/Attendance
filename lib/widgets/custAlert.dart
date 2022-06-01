@@ -15,21 +15,21 @@ showCustAlert(
       return Container(
         height: 150,
         child: Lottie.asset("assets/success.json",
-            width: 90, frameRate: FrameRate(60)),
+            repeat: false, width: 90, frameRate: FrameRate(60)),
       );
     }
     if (path == "warning") {
       return Container(
         height: 150,
         child: Lottie.asset("assets/warning.json",
-            width: 200, frameRate: FrameRate(60)),
+            repeat: false, width: 200, frameRate: FrameRate(60)),
       );
     }
     if (path == "error") {
       return Container(
         height: 150,
         child: Lottie.asset("assets/error.json",
-            width: 120, frameRate: FrameRate(60)),
+            repeat: false, width: 120, frameRate: FrameRate(60)),
       );
     }
   }
