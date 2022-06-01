@@ -52,7 +52,9 @@ class MyApp extends StatelessWidget {
                   DashboardMenu.routeName: (ctx) => DashboardMenu(),
                   // LeavePage.routeName: (ctx) => LeavePage(),
                   InicialLeavePage.routeName: (ctx) => InicialLeavePage(),
-                  ReportPage.routeName: (ctx) => ReportPage(id:Provider.of<Parent>(context).getParentInf().id,)
+                  ReportPage.routeName: (ctx) => ReportPage(
+                        id: Provider.of<Parent>(context).getParentInf().id,
+                      )
                 },
               );
             });

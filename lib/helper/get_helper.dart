@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'dart:math';
+import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:schools_management/constant.dart';
@@ -212,7 +212,7 @@ class GetHelper {
     }
   }
 
-  static Future sendAttend(
+  Future sendAttend(
       String name,
       int userid,
       String datetime,
@@ -248,10 +248,16 @@ class GetHelper {
         // if every things are right then return true
         var message = jsonDecode(response.body);
 
-        print(message);
+        log(message.toString());
+        return true;
+      } else if (response.statusCode == 500) {
+        var message = jsonDecode(response.body);
+        log(message.toString());
       }
+      // return false;
     } catch (e) {
-      print(e);
+      log(e.toString());
+      return false;
     }
   }
 
@@ -467,7 +473,7 @@ class GetHelper {
     var datauser;
     try {
       // response = await http.post(LINKAPI"api/login", body: {
-      response = await http.post(LINKAPIRIL + "api/login", body: {
+      response = await http.post(LINKAPI + "api/login", body: {
         // response = await http.post(LINKAPI + "api/login", body: {
         "email": user
             .trim(), // we use trim method to avoid spaces that user may make when logging

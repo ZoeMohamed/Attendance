@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 import 'dart:convert';
 
@@ -13,6 +14,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:intl/intl.dart';
 import 'package:camera/camera.dart';
+import 'package:schools_management/screens/DashboardMenu.dart';
 import 'package:schools_management/widgets/custAlert.dart';
 import 'package:schools_management/widgets/custom_app_bar.dart';
 import 'package:schools_management/widgets/loading_alert.dart';
@@ -78,111 +80,10 @@ class _GoAttendState extends State<GoAttend> {
   bool showCapturedPhoto = false;
   var ImagePath;
 
-  // To check if any type of biometric authentication
-  // hardware is available.
-  // Future<bool> _isBiometricAvailable() async {
-  //   bool isAvailable = false;
-  //   try {
-  //     isAvailable = await auth.canCheckBiometrics;
-  //   } on PlatformException catch (e) {
-  //     print(e);
-  //   }
-
-  //   if (!mounted) return isAvailable;
-  //   String tanggalnow = DateFormat('yyyy-MM-dd HH:mm:ss').format(now);
-  //   if (isAvailable == true){
-  //     print('Biometric is available!');
-  //   }else{
-  //     GetHelper.sendAttend(name, user_id, tanggalnow, latitude.toString(), longitude.toString(), addressName, filePath, img64, city);
-  //     Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-  //             SuccessAttendScreen()), (Route<dynamic> route) => false);
-  //   }
-
-  //   return isAvailable;
-
-  // }
-
-  // // To retrieve the list of biometric types
-  // // (if available).
-  // Future<void> _getListOfBiometricTypes() async {
-  //   List<BiometricType> listOfBiometrics;
-  //   try {
-  //     listOfBiometrics = await auth.getAvailableBiometrics();
-  //   } on PlatformException catch (e) {
-  //     print(e);
-  //   }
-
-  //   if (!mounted) return;
-
-  //   print(listOfBiometrics);
-  // }
-
-  // showLoadingProgress() {
-  //   showDialog(
-  //       context: context,
-  //       builder: (BuildContext context) {
-  //         return LoadingAlert();
-  //       });
-  // }
-  // // Process of authentication user using
-  // // biometrics.
-  // Future<void> _authenticateUser() async {
-
-  //   try {
-  //     isAuthenticated = await auth.authenticateWithBiometrics(
-  //       localizedReason:
-  //           "Please authenticate to attendance store",
-  //       useErrorDialogs: true,
-  //       stickyAuth: true,
-  //     );
-  //   } on PlatformException catch (e) {
-  //     print(e);
-  //   }
-
-  //   if (!mounted) return;
-
-  //   isAuthenticated
-  //       ? print('User is authenticated!')
-  //       : print('User is not authenticated.');
-
-  //   if (isAuthenticated) {
-  //     setState(() {
-  //       isAuthenticated = true;
-  //     });
-  //     String tanggalnow = DateFormat('yyyy-MM-dd HH:mm:ss').format(now);
-  //     showLoadingProgress();
-
-  //     if (latitude != 0 && longitude != 0){
-  //     var push = GetHelper.sendAttend(name, user_id, tanggalnow, latitude.toString(), longitude.toString(), addressName, filePath, img64, city);
-
-  //     Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-  //                         SuccessAttendScreen()), (Route<dynamic> route) => false);
-  //     }else{
-  //       _latnotfound(context);
-  //     }
-  //   }else{
-  //     String tanggalnow = DateFormat('yyyy-MM-dd HH:mm:ss').format(now);
-  //     showLoadingProgress();
-  //     if (latitude != 0 && longitude != 0){
-  //     var push = GetHelper.sendAttend(name, user_id, tanggalnow, latitude.toString(), longitude.toString(), addressName, filePath, img64, city);
-
-  //     Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-  //                         MainParentPage()), (Route<dynamic> route) => false);
-  //     }else{
-  //       _latnotfound(context);
-  //     }
-  //     // Navigator.of(context).push(
-  //     //   MaterialPageRoute(
-  //     //     builder: (context) => MainParentPage(),
-  //     //   ),
-  //     // );
-  //   }
-  // }
-
   Future<void> _initializeCamera() async {
     final cameras = await availableCameras();
     final firstCamera = cameras[1];
-    _controller = CameraController(firstCamera, ResolutionPreset.medium);
+    _controller = CameraController(firstCamera, ResolutionPreset.low);
     _initializeControllerFuture = _controller.initialize();
     if (!mounted) {
       return;
@@ -338,34 +239,26 @@ class _GoAttendState extends State<GoAttend> {
   }
 
   _onAlertButtonsPressed(context) {
-    // Alert(
-    //   context: context,
-    //   type: AlertType.warning,
-    //   title: "Thanks For Capture,Please Click Go Attend",
-    //   desc: "If you any question please contact Team IT",
-    //   buttons: [
-    //     DialogButton(
-    //       child: Text(
-    //         "Go Attend",
-    //         style: TextStyle(color: Colors.white, fontSize: 18),
-    //       ),
-    //       //onPressed:  () => GetHelper.sendAttend(name, user_id, "2020-09-28 17:03:01", latitude.toString(), longitude.toString()),
-    //       onPressed: () {},
-    //       color: Color.fromRGBO(0, 179, 134, 1.0),
-    //     ),
-    //   ],
-    // ).show();
     showCustAlert(
         height: 280,
         context: context,
         title: "Thanks For Capture",
         buttonString: "Go Attend",
-        onSubmit: () {
+        onSubmit: () async {
+          // tanggalnow = "2022-06-01 12:00:00";
           tanggalnow = DateFormat('yyyy-MM-dd HH:mm:ss').format(now);
+          log(user_id.toString());
+          log(tanggalnow);
+          log(latitude.toString());
+          log(longitude.toString());
+          log(addressName);
+          log(filePath);
+          // log(img64.toString());
+          log(city);
           showLoadingProgress(context);
 
           if (latitude != 0 && longitude != 0) {
-            var push = GetHelper.sendAttend(
+            await GetHelper().sendAttend(
                 name,
                 user_id,
                 tanggalnow,
@@ -388,24 +281,6 @@ class _GoAttendState extends State<GoAttend> {
   }
 
   _onCamera(context) {
-    // Alert(
-    //   context: context,
-    //   type: AlertType.error,
-    //   title: "Error: ",
-    //   desc: "select a camera first.",
-    //   // buttons: [
-    //   //   DialogButton(
-    //   //     child: Text(
-    //   //       "Go Attend",
-    //   //       style: TextStyle(color: Colors.white, fontSize: 18),
-    //   //     ),
-    //   //     //onPressed:  () => GetHelper.sendAttend(name, user_id, "2020-09-28 17:03:01", latitude.toString(), longitude.toString()),
-    //   //     onPressed: () => _checking(),
-    //   //     color: Color.fromRGBO(0, 179, 134, 1.0),
-    //   //   ),
-
-    //   // ],
-    // ).show();
     showCustAlert(
         height: 280,
         context: context,
@@ -419,23 +294,6 @@ class _GoAttendState extends State<GoAttend> {
   }
 
   _latnotfound(context) {
-    // Alert(
-    //   context: context,
-    //   type: AlertType.warning,
-    //   title: "Location Not Found",
-    //   desc: "Please You Check Internet/Gps",
-    //   buttons: [
-    //     DialogButton(
-    //       child: Text(
-    //         "Refresh",
-    //         style: TextStyle(color: Colors.white, fontSize: 18),
-    //       ),
-    //       //onPressed:  () => GetHelper.sendAttend(name, user_id, "2020-09-28 17:03:01", latitude.toString(), longitude.toString()),
-    //       onPressed: () =>
-    //       color: Color.fromRGBO(0, 179, 134, 1.0),
-    //     ),
-    //   ],
-    // ).show();
     showCustAlert(
         height: 280,
         context: context,

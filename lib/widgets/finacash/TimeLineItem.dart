@@ -85,9 +85,7 @@ class TimeLineItem extends StatelessWidget {
                                 Container(
                                   width: width / 4,
                                   child: Text(
-                                    // mov.descricao,
-                                    "sdaopkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk",
-
+                                    mov.descricao,
                                     style: TextStyle(
                                         overflow: TextOverflow.ellipsis,
                                         color: Colors.black,

@@ -512,35 +512,7 @@ class _MainParentPageState extends State<MainParentPage> {
                                         setState(() {
                                           proccess = false;
                                         });
-                                        // Alert(
-                                        //   style: AlertStyle(
-                                        //     animationType:
-                                        //         AnimationType.fromTop,
-                                        //     isCloseButton: true,
-                                        //     isOverlayTapDismiss: false,
-                                        //   ),
-                                        //   context: context,
-                                        //   type: AlertType.warning,
-                                        //   title: "Warning !!",
-                                        //   desc:
-                                        // "Menu is disable ,you not allow to access this menu ..😩",
-                                        //   buttons: [
-                                        //     DialogButton(
-                                        //       child: Text(
-                                        //         "Close",
-                                        //         style: TextStyle(
-                                        //             color: Colors.black,
-                                        //             fontSize: 18),
-                                        //       ),
-                                        //onPressed:  () => GetHelper.sendAttend(name, user_id, "2020-09-28 17:03:01", latitude.toString(), longitude.toString()),
-                                        // onPressed: () {
-                                        //   // Navigator.pop(context);
-                                        // },
-                                        //       color: Color.fromRGBO(
-                                        //           0, 179, 134, 1.0),
-                                        //     ),
-                                        //   ],
-                                        // ).show();
+
                                         showCustAlert(
                                             height: 290,
                                             context: context,
@@ -580,8 +552,8 @@ class _MainParentPageState extends State<MainParentPage> {
                                     onPressed: () async {
                                       showLoadingProgress(context);
                                       await getstatusIN();
-                                      // await getRoadname();
-                                      // await getCurrentLocation();
+                                      await getRoadname();
+                                      await getCurrentLocation();
                                       Navigator.pop(context);
                                     },
                                     child: Icon(Icons.refresh),
@@ -1089,34 +1061,6 @@ class _MainParentPageState extends State<MainParentPage> {
           //           )),
           // );
         } else {
-          // Alert(
-          //   style: AlertStyle(
-          //     animationType: AnimationType.fromTop,
-          //     isCloseButton: false,
-          //     isOverlayTapDismiss: false,
-          //   ),
-          //   context: context,
-          //   type: AlertType.info,
-          //   title: "Hi , ${parentName}",
-          //   desc: "${userData["message"]}",
-          //   buttons: [
-          //     DialogButton(
-          //       child: Text(
-          //         "Close",
-          //         style: TextStyle(color: Colors.white, fontSize: 18),
-          //       ),
-          //       //onPressed:  () => GetHelper.sendAttend(name, user_id, "2020-09-28 17:03:01", latitude.toString(), longitude.toString()),
-          //       onPressed: () {
-          //         // Navigator.of(context).pop();
-          //         Navigator.popUntil(
-          //           context,
-          //           ModalRoute.withName('/attendance'),
-          //         );
-          //       },
-          //       color: Color.fromRGBO(0, 179, 134, 1.0),
-          //     ),
-          //   ],
-          // ).show();
           showCustAlert(
               height: 310,
               context: context,
