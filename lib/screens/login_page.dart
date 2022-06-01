@@ -194,6 +194,8 @@ class _LoginState extends State<Login> {
       print(
           "Data username dan password sudah ada di sharedpreference yaitu => ${usern.toString()}");
     } else {
+      // Navigator.pop(context);
+
       print("No Data sharedpreference bro");
     }
   }

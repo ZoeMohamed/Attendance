@@ -6,6 +6,7 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:schools_management/helper/get_helper.dart';
 import 'package:schools_management/provider/parent.dart';
+import 'package:schools_management/screens/DashboardMenu.dart';
 import 'package:schools_management/screens/Leave/inicialLeavePage.dart';
 import 'package:schools_management/widgets/custAlert.dart';
 import 'package:schools_management/widgets/custom_app_bar.dart';
@@ -904,7 +905,7 @@ class _RequestLeavePageState extends State<RequestLeavePage> {
                                                   .pushAndRemoveUntil(
                                                       MaterialPageRoute(
                                                           builder: (context) =>
-                                                              InicialLeavePage()),
+                                                              DashboardMenu()),
                                                       (Route<dynamic> route) =>
                                                           false);
                                             },

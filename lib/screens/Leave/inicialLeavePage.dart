@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
@@ -31,12 +33,11 @@ class InicialLeavePage extends StatefulWidget {
       nonActive: FluentIcons.home_20_regular,
     ),
     BarItem(
-      text: "Leave Add",
-      iconData: Icons.add_circle_outline,
-      color: Color.fromRGBO(14, 69, 84, 1),
-      active: FluentIcons.calendar_person_20_filled,
-      nonActive: FluentIcons.calendar_person_20_regular,
-    ),
+        text: "Leave Add",
+        iconData: Icons.add_circle_outline,
+        color: Color.fromRGBO(14, 69, 84, 1),
+        active: FluentIcons.add_circle_20_filled,
+        nonActive: FluentIcons.add_circle_20_regular),
     /*BarItem(
       text: "Search",
       iconData: Icons.search,
@@ -60,9 +61,10 @@ class _InicialLeavePageState extends State<InicialLeavePage> {
 
   @override
   Widget build(BuildContext context) {
-    getParentInfo = Provider.of<Parent>(context).getParentInf();
+    getParentInfo = Provider.of<Parent>(context, listen: true).getParentInf();
     parentId = getParentInfo.id;
     parentCuti = getParentInfo.sisa_cuti;
+    log(parentCuti.toString());
 
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
@@ -84,7 +86,7 @@ class _InicialLeavePageState extends State<InicialLeavePage> {
       ),
       LeavePage(id: parentId),
       RequestLeavePage(sisa_cuti: parentCuti),
-      ReportPage(id:parentId)
+      ReportPage(id: parentId)
     ];
 
     //_allMov();

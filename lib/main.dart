@@ -21,6 +21,8 @@ class MyApp extends StatelessWidget {
       systemNavigationBarColor: Colors.white,
       systemNavigationBarIconBrightness: Brightness.dark,
     ));
+    SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
     MaterialColor colorCustom = MaterialColor(0xFF3e6a76, color);
     return MultiProvider(
         // The providers that we are gonna use at the app
