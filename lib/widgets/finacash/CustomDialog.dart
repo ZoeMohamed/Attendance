@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/services.dart';
+import 'package:schools_management/constant.dart';
 import 'package:schools_management/helper/Movimentacoes_helper.dart';
 import 'package:schools_management/screens/Finance/HomePage.dart';
 import 'package:schools_management/screens/Finance/InicialPage.dart';
@@ -35,8 +36,7 @@ class _CustomDialogState extends State<CustomDialog> {
   static final String trackmoneyEndPoint =
       'https://budget.intek.co.id/api/finance/updateData';
 
-  static final String uploadEndpoint =
-      'https://la-att.intek.co.id/images/upload/struk';
+  static final String uploadEndpoint = LINKAPI + 'images/upload/struk';
   //INITIAL VARIABLe
 
   String status = '';

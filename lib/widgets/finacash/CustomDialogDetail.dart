@@ -1,5 +1,6 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/services.dart';
+import 'package:schools_management/constant.dart';
 import 'package:schools_management/helper/Movimentacoes_helper.dart';
 import 'package:schools_management/helper/get_helper.dart';
 import 'package:flutter/material.dart';
@@ -42,8 +43,7 @@ class _CustomDialogDetailState extends State<CustomDialogDetail> {
   ParentInf getParentInfo;
   //IMAGE PICKER
 
-  static final String uploadEndPoint =
-      'https://la-att.intek.co.id/images/upload/struk';
+  static final String uploadEndPoint = LINKAPI + 'images/upload/struk';
 
   static final String trackmoneyEndPoint =
       'https://budget.intek.co.id/api/finance/updateData';
