@@ -245,9 +245,9 @@ class _GoAttendState extends State<GoAttend> {
         title: "Thanks For Capture",
         buttonString: "Go Attend",
         onSubmit: () async {
-          tanggalnow = "2022-06-03 07:00:00";
+          // tanggalnow = "2022-06-03 07:00:00";
           // tanggalnow = "2022-06-03 18:00:00";
-          // tanggalnow = DateFormat('yyyy-MM-dd HH:mm:ss').format(now);
+          tanggalnow = DateFormat('yyyy-MM-dd HH:mm:ss').format(now);
           log(user_id.toString());
           log(tanggalnow);
           log(latitude.toString());
