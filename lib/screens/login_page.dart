@@ -1,6 +1,7 @@
 /* login page */
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 // import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
@@ -157,14 +158,14 @@ class _LoginState extends State<Login> {
     bool password = prefs.containsKey('password');
 
     if (username == true && password == true) {
-      showLoadingProgress(context);
+      showLoadingProgressLogin(context);
       setState(() {
         usern = prefs.getString('username');
         passwd = prefs.getString('password');
         sharedpref = true;
       });
       if (state == true) {
-        showLoadingProgress(context);
+        showLoadingProgressLogin(context);
       }
       Provider.of<Parent>(context, listen: false)
           .loginParentAndGetInf(usern.toString(), passwd.toString())
@@ -211,7 +212,7 @@ class _LoginState extends State<Login> {
       if (_formKey.currentState.validate()) {
         // check if all the conditionsthe we put on validators are right
         if (state) {
-          showLoadingProgress(context); // show CircularProgressIndicator
+          showLoadingProgressLogin(context); // show CircularProgressIndicator
         }
         if (selectedRadio == 1) {
           // if the radio button on parent then login using parent provider
@@ -529,4 +530,23 @@ class _LoginState extends State<Login> {
       ),
     );
   }
+}
+
+showLoadingProgressLogin(BuildContext context) {
+  showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (_) => Center(
+              // Aligns the container to center
+              child: Container(
+            // A simplified version of dialog.
+            decoration: BoxDecoration(
+                color: Colors.white, borderRadius: BorderRadius.circular(8)),
+            width: 100.0,
+            height: 70.0,
+            child: SpinKitWave(
+              color: Color(0xFF3e6a76).withOpacity(0.5),
+              size: 25.0,
+            ),
+          )));
 }

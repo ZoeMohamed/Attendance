@@ -506,7 +506,6 @@ class _MainParentPageState extends State<MainParentPage> {
                                                     )),
                                           );
                                         }
-
                                         //
                                       } else {
                                         setState(() {
@@ -524,6 +523,17 @@ class _MainParentPageState extends State<MainParentPage> {
                                               Navigator.pop(context);
                                             },
                                             pathLottie: "warning");
+                                        // Navigator.push(
+                                        //   context,
+                                        //   MaterialPageRoute(
+                                        //       builder: (context) => GoAttend(
+                                        //             lat: latitude,
+                                        //             long: longitude,
+                                        //             name: parentName,
+                                        //             user_id: parentID,
+                                        //             // menuLeave: menuLeave,
+                                        //           )),
+                                        // );
                                       }
                                     },
                                     child: Text(
